@@ -3,3 +3,13 @@ jdk:
  - oraclejdk8
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+before_install:
+ - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in $GPG_DIR/pubring.gpg.enc
+  -out $GPG_DIR/pubring.gpg -d
+ - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in $GPG_DIR/secring.gpg.enc
+  -out $GPG_DIR/secring.gpg -d
+
+env:
+ global:
+  - GPP_DIR="`pwd`/.travis"
+  - secure: aTt9lIBxPbm1FOamqqF3XbDx7w2ssw6xbvdMLxDI4/359CDLaycgoBL27Rv53Tw/vVlkLtL8qk6YMis2nphaaPRP1O1MQ4jWuJCm9sPIsnV4LxkQrSzI8y6OhQURhEWTFUOugBpi8p4eL6FRSABOnQaP+SsnpEfYIqWqhWixTw6ck5EEOJ0jJgs2+iVqzr0PyyM7IT6AOl/1/QPD55CGwqXlQ2qGIQQm6h5SMdUn3xe/f4S/LvIGdVgqj5+xPyDWQC74/88cdjyJi/bd/+qh+qC6Zr/2zYrFkSHGWsOrmGFFMqBjftRIX9FrPlEy92sfJFN+GQecxo7BqUfW6C6NWO2EWyQV+vMED8vuyCswFbJzmXZEdlA9vnaIk4yYohiDxUZfdue9ly7u6DxvIu5NXcP2I8gAt+mF/fTFM7szTfParr4u/vd+Kb5zK6mxdilLQuKbe+iBS+/SwcTvM4ZVxu8Pa/X9UpnsVJNec4b14Jrj/FEy7bRwJ37zKXoTojX6hc4/vLsJlGtyQGdZvBBPo2+pCjO+9GOjqU+0YXVQw9SWtQlt6zXNQUKNiNSlMwhfI5bTeb7lykUfUcd+hd3gt5VC8eGSKr1M0nYf0J2aHjh5CtRyKVExde6mA2Ich1AZ92TQu2Cu0w+FNyEHJ2A5u1QnqnD0wVk0Yq99ricL6Jo=
